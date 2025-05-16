@@ -100,10 +100,32 @@ char* outputStatement(char name[15], int birthday, int birthmonth){
     return output;
 }
 
+char* monthString(int birthmonth){
+    char* MONTH_STR;
+    switch(birthmonth){
+        case 1: MONTH_STR = "January"; break;
+        case 2: MONTH_STR = "February"; break;
+        case 3: MONTH_STR = "March"; break;
+        case 4: MONTH_STR = "April"; break;
+        case 5: MONTH_STR = "May"; break;
+        case 6: MONTH_STR = "June"; break;
+        case 7: MONTH_STR = "July"; break;
+        case 8: MONTH_STR = "August"; break;
+        case 9: MONTH_STR = "September"; break;
+        case 10: MONTH_STR = "October"; break;
+        case 11: MONTH_STR = "November"; break;
+        case 12: MONTH_STR = "December"; break;
+        default: MONTH_STR = "Unknown"; break;
+    }
+
+    return MONTH_STR;
+}
+
 int main() {
     char name[100];
     int day;
     int month;
+    char* MONTH_STR;
 
     printf("Hello User, Please enter your name: ");
     scanf("%[^\n]%*c", name);
@@ -111,13 +133,37 @@ int main() {
     printf("Day of Birth (example: 11, 20, 31, etc): ");
     scanf("%d", &day);
 
-    printf("Month of Birth:\n 1. January\n2. February\n3. March\n4. April\n5. May\n6. June\n7. July\n8. August\n9. September\n10. October\n11. November\n12. December\n\nSelect your month between 1 and 12: ");
+    printf("Month of Birth:\n1. January\n2. February\n3. March\n4. April\n5. May\n6. June\n7. July\n8. August\n9. September\n10. October\n11. November\n12. December\n\nSelect your month between 1 and 12: ");
     
 
     scanf("%d", &month);
 
-    if (month < 1 && month > 12) {
+    if (month < 1 || month > 12) {
         printf("Month should be greater than 0 and less than 13");
+        return 1;
+    }
+
+    MONTH_STR = monthString(month);
+
+    if (day > 31 || day < 1) {
+        printf("Month of %s cannot have %d in date", MONTH_STR, day);
+        return 1;
+    }
+    if (month == 2){
+        if (day > 29) {
+            printf("Month of february cannot have more than 29 in date");
+            return 1;
+        }
+    } else if(month < 8) {
+        if (day > 30 && month % 2 == 0) {
+            printf("Month of %s cannot have more than 30 in date", MONTH_STR);
+            return 1;
+        }
+    } else if(month >= 8) {
+        if (day > 30 && month % 2 != 0) {
+            printf("Month of %s cannot have more than 30 in date", MONTH_STR);
+            return 1;
+        }
     }
 
     printf(outputStatement(name, day, month));
