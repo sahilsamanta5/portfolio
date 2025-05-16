@@ -111,8 +111,14 @@ int main() {
     printf("Day of Birth (example: 11, 20, 31, etc): ");
     scanf("%d", &day);
 
-    printf("Month of Birth (example: 1, 7, 9, 12): ");
+    printf("Month of Birth:\n 1. January\n2. February\n3. March\n4. April\n5. May\n6. June\n7. July\n8. August\n9. September\n10. October\n11. November\n12. December\n\nSelect your month between 1 and 12: ");
+    
+
     scanf("%d", &month);
+
+    if (month < 1 && month > 12) {
+        printf("Month should be greater than 0 and less than 13");
+    }
 
     printf(outputStatement(name, day, month));
     return 0;
