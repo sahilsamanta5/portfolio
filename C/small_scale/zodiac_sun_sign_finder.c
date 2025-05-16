@@ -7,7 +7,7 @@
 #include <string.h>
 
 char* outputStatement(char name[15], int birthday, int birthmonth){
-    static char output[15];
+    static char output[100];
     char zodiac[15] = "Unknown";
     switch(birthmonth){
         case 1:
